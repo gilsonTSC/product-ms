@@ -5,13 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.gilson.productms.dtos.ProductDTO;
 import com.gilson.productms.entity.ProductEntity;
 import com.gilson.productms.reprository.ProductReprository;
-import com.gilson.productms.service.exceptions.IdNotExistException;
 import com.gilson.productms.service.exceptions.ObjectNotFoundException;
 
 @Service
@@ -36,14 +34,8 @@ public class ProductService {
 		return this.productreprository.findAll();
 	}
 	
-	public void delete(String id) {
-		this.findById(id);
-		
-		try {
-			this.productreprository.deleteById(id);
-		} catch (DataIntegrityViolationException e) {
-			throw new IdNotExistException("Id not exist!");
-		}
+	public void delete(ProductEntity productEntity) {
+		this.productreprository.delete(productEntity);
 	}
 	
 	public ProductDTO converteEntityToDTO(ProductEntity productEntity) {
