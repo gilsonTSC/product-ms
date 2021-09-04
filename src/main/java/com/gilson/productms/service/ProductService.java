@@ -30,6 +30,10 @@ public class ProductService {
 				"Objeto não encontrado! Id: " + id + "."));
 	}
 	
+	public List<ProductEntity>  findByNameAndPrice(String q,Double minPrice, Double maxPrice) {
+		return this.productreprository.findByNameAndPrice(q, minPrice, maxPrice);
+	}
+	
 	public List<ProductEntity> findAll() {
 		return this.productreprository.findAll();
 	}
